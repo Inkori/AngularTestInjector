@@ -1,0 +1,9 @@
+<table class="default-table" [ngClass]="customClass">
+
+            <td
+                *ngFor="let cell of columnSettings"
+                [ngClass]="{'table-image': !cell.cellName}">
+            <app-dynamic-table-cell-component [cellData]="{cell: cell, item: item}"></app-dynamic-table-cell-component>
+                <!-- <app-cell-wrapper [cellData]="{cell: cell, item: item}"></app-cell-wrapper> -->
+            </td>
+</table>

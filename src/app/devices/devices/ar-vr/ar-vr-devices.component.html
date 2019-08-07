@@ -1,0 +1,10 @@
+
+                <app-table
+                    [params]="tableConfig"
+                 ></app-table>
+
+<div *ngFor="let device of devices">
+    {{device.deviceName}}
+    {{device.deviceModelType}}
+    {{device.deviceManufacturer}}
+</div>
