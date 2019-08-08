@@ -22,6 +22,9 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "lazyModules": [
+              "src/app/shared/components/table/cell-components/cell.module"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

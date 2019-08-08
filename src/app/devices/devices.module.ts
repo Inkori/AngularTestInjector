@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, SystemJsNgModuleLoader, NgModuleFactoryLoader } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes } from '@angular/router';
 import { DevicesComponent } from './devices/devices.component';
@@ -26,6 +26,9 @@ const routes: Routes = [
   exports: [
     DevicesComponent
   ],
-  providers: [DeviceServise]
+  providers: [
+    { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
+    DeviceServise,
+  ]
 })
 export class DevicesModule { }

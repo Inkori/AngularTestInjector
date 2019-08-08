@@ -25,6 +25,7 @@ export class ArVrDeviceComponent implements OnInit  {
     }
   ngOnInit() {
     this.devicesGet();
+
     }
    devicesGet() {
     return this.deviceService.getDevices().subscribe(data => this.devices = data);
