@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, AfterViewChecked, AfterContentChecked, Compiler } from '@angular/core';
 import { TableCellComponentResolver } from './cells-provider/table-cell.resolver';
 import { ColumnSettings } from 'src/app/models/table-params';
 import { DeviceServise } from 'src/app/device.service';
@@ -7,23 +7,33 @@ import { DeviceServise } from 'src/app/device.service';
   selector: 'app-dynamic-table-cell-component',
   templateUrl: './dynamic-table-cell-component.component.html'
 })
-export class DynamicTableCellComponent implements OnInit {
+export class DynamicTableCellComponent implements OnInit, AfterViewInit {
   // @Input() value: string | string[] | number;
   // @Input() format: string;
   // @Input() item: any;
   @Input() cellData: { cell: ColumnSettings, item: any };
   testRes;
-  constructor(public resolver: TableCellComponentResolver, private servese: DeviceServise) { }
+  comp;
+  constructor(public resolver: TableCellComponentResolver, private servese: DeviceServise, private compiler: Compiler) { }
+
+
 
   async ngOnInit() {
-    await this.testFn();
+  }
+  async ngAfterViewInit() {
+    await this.loadModule();
+  }
+  async loadModule() {
   }
   get defaultValue() {
+
     return typeof this.format === 'undefined' ? this.value : null;
   }
   async testFn() {
 
   }
+
+
   // get comp() {
   //   return this.servese.getComponent(this.format);
   // }

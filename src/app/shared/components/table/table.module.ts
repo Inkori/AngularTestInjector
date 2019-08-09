@@ -18,6 +18,7 @@ import { DynamicTableCellModule } from '../dynamic-components/dynamic-table-cell
     SharedModule,
     DynamicTableCellModule,
 
+
   ],
   exports: [
     TableComponent,

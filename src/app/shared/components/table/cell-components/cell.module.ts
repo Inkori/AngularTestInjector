@@ -1,88 +1,120 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { PillStatusCellComponent } from './pill-status-cell/pill-status-cell.component';
 import { CommonModule } from '@angular/common';
 import { TagCellComponent } from './tag-cell/tag-cell.component';
 
-export function ComponentExtender(annotation: any): ((target) => void) {
-  return (target) => {
-    const parentTarget = Object.getPrototypeOf(target.prototype).constructor;
-    // const parentAnnotations = target.__annotations__[0]; // TODO: Doesn't work in Angular 5, returns undefined.
-    // const parentAnnotation = parentAnnotations[0];
-
-    // Object.keys(parentAnnotation).forEach(key => {
-    //   if (parentAnnotation[key]) {
-    //     if (!annotation[key]) {
-    //       annotation[key] = parentAnnotation[key];
-    //     }
-    //   }
-    // });
-    console.log([target]);
-    const metadatas = new NgModule(annotation);
-
-    Reflect.defineMetadata('annotations', [ metadatas ], target);
-  };
-}
-
-export const ANNOTATIONS = '__annotations__';
-export function makeDecorator() {
-  const TypeDecorator: TypeDecorator = function TypeDecorator(cls: Type<any>) {
-    // Use of Object.defineProperty is important since it creates non-enumerable property which
-    // prevents the property is copied during subclassing.
-    const annotations = cls.hasOwnProperty(ANNOTATIONS) ?
-        (cls as any)[ANNOTATIONS] :
-        Object.defineProperty(cls, ANNOTATIONS, {value: []})[ANNOTATIONS]; -- as; -- -
-    annotations.push(annotationInstance);
-    return cls;
-  } as TypeDecorator;
-}
+// export     function CustomNgModule(anotation) {
+//   return (target) => {
+//     // const anotations = '__anotations__';
+//     // const decl = target[anotations][0].declarations;
+//     console.log(anotation);
+//     const generateProviders = anotation.declarations.map(component => provideTableCell(component.format, component));
+//     const anatations = Object.assign(anotation, {providers: generateProviders});
+//     const ngModule = new NgModule(anatations);
+//     NgModule(ngModule)(target);
+//   };
+// }
 
 
-    const metadata = {
-  declarations: [
-    PillStatusCellComponent,
-    TagCellComponent,
-
-  ]
-};
-
-
-
-// export class ControlsModule {}
-
-// @NgModule({
+// @CustomNgModule({
 //   declarations: [
 //     PillStatusCellComponent,
 //     TagCellComponent,
-
 //   ],
-//   imports: [CommonModule, ],
-//   exports: [],
+//   imports: [CommonModule]
 // })
-// @CustomNgModule(metadata)
-    export     function CustomNgModule() {
+//   @NgModule({
+//   declarations: [
+//     PillStatusCellComponent,
+//     TagCellComponent,
+//   ],
+//     imports: [CommonModule],
+// })
+// export class CellModule {
+
+
+// }
+console.log('1');
+
+// declarations.map(component => {
+//   return {
+//     declarations: [component],
+//     providers: [provideTableCell(component.format, component)]
+
+//   };
+// }
+
+// export function generateModule() {
+//     @NgModule({
+//       declarations: [
+//         PillStatusCellComponent,
+//         TagCellComponent,
+//       ],
+//       imports: [CommonModule]
+//     })
+//     class CustomModule { }
+//     // declarations =
+//   //   const providers = {
+//   //     declarations: [declarations.map(component => component)],
+//   //     providers: [declarations.map(component => provideTableCell(component.format, component))],
+//   //     imports: [CommonModule]
+
+//   // };
+//     return (CustomModule as any).__annotations__[0].declarations;
+
+// }
+
+// export const test = {
+//   declarations: generateModule().map(component => component),
+//   providers: [generateModule().map(component => provideTableCell(component.format, component))],
+//   imports: [CommonModule]
+// };
+// export function generateModule() {
+//   return {
+//         @NgModule({
+//       declarations: [
+//         PillStatusCellComponent,
+//         TagCellComponent,
+//         Test1Component,
+//         Test2Component,
+//       ],
+//       imports: [CommonModule]
+//     })
+//     class CustomModule { }
+//     return CustomModule;
+//   };
+// }
+// export  function CustomNgModule() {
+//   // return (target) => {
+//   //   const anotations = '__annotations__';
+//   //   // const decl = target[anotations][0].declarations;
+//   //   const generateProviders = setTimeout(() => target[anotations] ?
+//   //   target[anotations][1].declarations.map(component => provideTableCell(component.format, component)) : [], 3000 );
+
+//   //   // const anatations = Object.assign(anotation, {providers: generateProviders});
+//   //   console.log([target], generateProviders, target[anotations]);
+//   //   // console.log(generateProviders);
+
+//   //   const ngModule = new NgModule();
+//   //   NgModule(ngModule)(target);
+//   // };
+// }
+
+
+
+export     function CustomNgModule(anotation) {
   return (target) => {
-    const anotations = '__anotations__';
-    // const decl = target[anotations][0].declarations;
-    console.log([target]);
-    const ngModule = new NgModule();
+    const ngModule = new NgModule(anotation);
     NgModule(ngModule)(target);
   };
 }
 
 @NgModule({
-    declarations: [
-      PillStatusCellComponent,
-      TagCellComponent,
-
-    ],
-    imports: [CommonModule, ],
-    exports: [],
-})
-  @CustomNgModule()
-  @ComponentExtender(metadata)
+  declarations: [PillStatusCellComponent,
+    TagCellComponent, ],
+  imports: [CommonModule],
+  })
 export class CellModule {
-
-
 }
 
 

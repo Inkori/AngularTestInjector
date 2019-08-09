@@ -13,8 +13,8 @@ export class TagCellComponent implements OnInit {
 
   ngOnInit() {
   }
-  static get format() {
-    return 'tags';
-  }
+  // static get format() {
+  //   return 'tags';
+  // }
 
 }
